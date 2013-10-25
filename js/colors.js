@@ -1,3 +1,5 @@
+var words = []
+
 // I found this online, it adds a "change" event to contentEditable boxes. I needed this to change color whenever the text changes.
 $('[contenteditable]').on('focus', function() {
     var $this = $(this);
@@ -51,7 +53,7 @@ $('.paletteInput').change(function() {
           colorArray.push(hex)
         }
         colorIndex = 0
-        console.log(colorArray)
+        //console.log(colorArray)
 
         var hex = colorArray[colorIndex]
         $('.paletteInput').css("color", hex)
@@ -61,6 +63,54 @@ $('.paletteInput').change(function() {
     })
   }
 })
+
+function getColor(elem) {
+  $.ajax({
+    url: "http://www.colourlovers.com/api/colors?keywords="+elem.text()+"&numResults=20&format=json&jsonCallback=?",
+    dataType: 'jsonp',
+    success: function(data) {
+      colorArray=[]
+      for (var i = 0; i < data.length; i++) {
+        var hex = toProperHex(data[i].hex)
+        colorArray.push(hex)
+      }
+      colorIndex = 0
+      //console.log(colorArray)
+
+      var hex = colorArray[colorIndex]
+      elem.css("color", hex)
+      $('.hex').css("color", hex)
+      $('.hex').text(hex)
+    }
+  })
+}
+
+//http://stackoverflow.com/a/6752981
+$('.poem').on('change', function(e) {
+    var parent
+    if (document.selection)
+        parent = $(document.selection.createRange().parentElement()); // IE
+    else
+        parent = $(window.getSelection().anchorNode.parentNode); // everyone else
+
+    if (e.keyCode == 32 || e.charCode == 32) {
+      console.log(parent.attr("class"))
+      
+      
+    }
+    console.log(parent)
+    preWord = $("<span></span>")
+    parent.before(preWord)
+    parent.before(" ")
+    newWords = parent.text().split(" ")
+    if (newWords.length > 1 && parent.is("span")) {
+      console.log(newWords)
+      preWord.text(newWords[0])
+      parent.text(newWords[1])
+      getColor(preWord)
+      getColor(parent)
+    }
+});
 
 // THIS USED TO BE FOR TRACKING
  
@@ -87,6 +137,8 @@ $('.paletteInput').keydown(function(e) {
   } else if (e.keyCode == 40 || e.charCode == 40) {
     toggleColor('down')
     return false;
+  } else if (e.keyCode == 32 || e.charCode == 32) { 
+    
   }
   clearTimeout(typeTimer)
 })
@@ -119,8 +171,9 @@ function toggleColor(word) {
 
 function addWord(text, color) {  
   completeColor()
-  newWord = $("<span style='color:"+color+"'>"+text+" </span>")
+  newWord = $("<span class="+Math.floor(Math.random()*100)+" style='color:"+color+"'>"+text+"</span>")
   $('.poem').append(newWord)
+  $('.poem').append(" ")
   clicky.log('/colors/add', text)
   $('.helpEnter').remove()
 }

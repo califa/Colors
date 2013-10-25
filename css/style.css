@@ -2,6 +2,12 @@ html {
   transition: 0.5s font-size;
   font-size: 62.5%;
 }
+span.word {
+  border-bottom: 1px solid red;
+}
+div.poem { outline: 0;}
+div.poem span { border-bottom: 2px solid red;}
+div.poem span:hover {margin-top: 50px; margin-bottom: 50px;}
 * {
   padding: 0;
   margin: 0;
@@ -13,7 +19,7 @@ body {
 }
 .paletteInput, .overlay {
   transition: 0.5s padding;
-  font-size: 15rem;
+  font-size: 8rem;
   font-weight: bold;
   padding: 8rem;
   padding-left: 10rem;
