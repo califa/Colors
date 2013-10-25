@@ -1,0 +1,105 @@
+html {
+  transition: 0.5s font-size;
+  font-size: 62.5%;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Helvetica;
+}
+body {
+  position: relative;
+}
+.paletteInput, .overlay {
+  transition: 0.5s padding;
+  font-size: 15rem;
+  font-weight: bold;
+  padding: 8rem;
+  padding-left: 10rem;
+  outline: none;
+  z-index: 500;
+  position: relative;      
+}
+
+.overlay {
+  z-index: 1;
+  color: #eee;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.hex { 
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 2rem;
+  font-size: 2rem;
+  display:none;
+  cursor:pointer;
+}
+
+.ohHeySup {
+  position: fixed;
+  display: block;
+  bottom:0;
+  right:0;
+  padding: 2rem;
+  font-size: 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 5000;
+}
+
+.palette {
+  transition: 0.5s margin-left;
+  margin-left: 10rem;
+}
+.palette li {
+  transition: 0.5s all;
+  border-radius: 100%;
+  height: 5rem;
+  width: 5rem;
+  float: left;
+  display: block;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+}
+.poem {
+  font-size:8rem;
+  font-weight:bold;
+  margin: 0 10rem;
+}
+
+.helpEnter {
+  display: none;
+  color: #ddd;
+}
+
+@media all and (max-width: 699px) {
+  html {
+    font-size: 20%;
+  }
+  .paletteInput, .overlay {
+    padding: 4rem;
+  }
+  .palette {
+    margin-left: 4rem;
+  }
+  .palette li {
+    height: 3rem;
+    width: 3rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+  .hex, .ohHeySup {
+    font-size: 5rem;
+  }
+
+  .poem {
+    margin: 0 4rem;
+  }
+
+
+}
